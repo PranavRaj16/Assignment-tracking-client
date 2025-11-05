@@ -15,25 +15,7 @@ export const useAuth = () => {
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useLocalStorage("user", null);
   const [token, setToken] = useLocalStorage("token", null);
-  const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
-
-  useEffect(() => {
-    if (token && user) {
-      validateToken();
-    } else {
-      setLoading(false);
-    }
-  }, []);
-
-  const validateToken = async () => {
-    try {
-      setLoading(false);
-    } catch (error) {
-      console.error("Token validation failed:", error);
-      logout();
-    }
-  };
 
   const login = async (email, password) => {
     try {
@@ -80,7 +62,6 @@ export const AuthProvider = ({ children }) => {
     login,
     register,
     logout,
-    loading,
     error,
     clearError,
   };
